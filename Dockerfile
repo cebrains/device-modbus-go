@@ -16,7 +16,8 @@ WORKDIR $GOPATH/src/github.com/edgexfoundry/device-modbus-go
 
 COPY . .
 
-RUN make build
+# RUN make build
+RUN make cmd/device-modbus
 
 FROM scratch
 
