@@ -17,11 +17,11 @@ FailWaitTime = 10
 Type = "consul"
 
 [Logging]
-EnableRemote = true
+EnableRemote = false
 File = "./device-Modbus.log"
 
 [Writable]
-LogLevel = "INFO"
+LogLevel = "DEBUG"
 
 [Clients]
   [Clients.Data]
@@ -52,4 +52,34 @@ LogLevel = "INFO"
   MaxCmdValueLen = 256
   RemoveCmd = ""
   RemoveCmdArgs = ""
-  ProfilesDir = "./res"
+  ProfilesDir = "./res/example"
+
+# Pre-define Devices
+[[DeviceList]]
+  Name = "Modbus TCP test device"
+  Profile = "Test.Device.Modbus.Profile"
+  Description = "This device is a product for monitoring and controlling digital inputs and outputs over a LAN."
+  labels = [ "Air conditioner","modbus TCP" ]
+  [DeviceList.Protocols]
+    [DeviceList.Protocols.modbus-tcp]
+       Address = "192.168.138.1"
+       Port = "1502"
+       UnitID = "1"
+  [[DeviceList.AutoEvents]]
+    Frequency = "20s"
+    OnChange = false
+    Resource = "HVACValues"
+
+[[DeviceList]]
+  Name = "Modbus RTU test device"
+  Profile = "Test.Device.Modbus.Profile"
+  Description = "This device is a product for monitoring and controlling digital inputs and outputs over a LAN."
+  labels = [ "Air conditioner","modbus RTU" ]
+  [DeviceList.Protocols]
+    [DeviceList.Protocols.modbus-rtu]
+       Address = "/tmp/slave"
+       BaudRate = "19200"
+       DataBits = "8"
+       StopBits = "1"
+       Parity = "N"
+       UnitID = "1"
